@@ -21,6 +21,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # Custome apps
     'blog.apps.BlogConfig',
+    'users.apps.UsersConfig',
 
     # Default apps
     'django.contrib.admin',
