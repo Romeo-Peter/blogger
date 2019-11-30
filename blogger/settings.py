@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     # Custome apps
     'blog.apps.BlogConfig',
     'users.apps.UsersConfig',
+    'crispy_forms',
 
     # Default apps
     'django.contrib.admin',
@@ -114,3 +115,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'blogger/static') # Where the static files are stored and retrieved
 ]
+
+# Crispy forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
