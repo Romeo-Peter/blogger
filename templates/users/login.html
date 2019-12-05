@@ -3,20 +3,20 @@
 
 {% block content %}
     <div class="content-section">
-        <form action="{% url 'account:register' %}" method="POST">
+        <form action="{% url 'account:login' %}" method="POST">
             {% csrf_token %}
 
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4 text-center">Join Today</legend>
+                <legend class="border-bottom mb-4 text-center">Login</legend>
                 {{ form | crispy}}
             </fieldset>
             <div class="form-group">
-                <button type="submit" class="btn btn-outline-info btn-block">Sign Up</button>
+                <button type="submit" class="btn btn-outline-info btn-block">Login</button>
             </div>
         </form>
         <div class="border-top pt-3">
             <small class="text-muted">
-                have an account? <a class="ml-2" href="{% url 'account:login' %}">Login</a>
+                Don't have an account? <a class="ml-2" href="{% url 'account:register' %}">Sign Up Here</a>
             </small>
         </div>
     </div>

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 # from django.contrib.auth.forms import UserCreationForm
 from users.forms import UserRegisterationForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 def register(request):
     if request.method == 'POST':
@@ -9,10 +10,17 @@ def register(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Accounted created for {username}!')
-            return redirect('blog:blog_home')
+            messages.success(request, f'Welcome {username}! You are now able to login.')
+            return redirect('account:login')
+        else:
+            messages.warning(request, f'Sorry! Login is invalid')
+            return redirect('account:login')
     else:
+        messages.success(request, f'Hi! Fill in fields to join')
         form = UserRegisterationForm()
-        messages.warning(request, f'Hi guest! Fill in fields to join')
 
     return render(request, 'users/register.html', {'form':form})
+
+@login_required
+def profile(request):
+    return render(request, 'users/profile.html')
