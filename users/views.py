@@ -13,8 +13,8 @@ def register(request):
             messages.success(request, f'Welcome {username}! You are now able to login.')
             return redirect('account:login')
         else:
-            messages.warning(request, f'Sorry! Login is invalid')
-            return redirect('account:login')
+            messages.warning(request, f'Sorry! Login invalid. Register again')
+            return redirect('account:register')
     else:
         messages.success(request, f'Hi! Fill in fields to join')
         form = UserRegisterationForm()

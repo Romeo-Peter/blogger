@@ -116,6 +116,11 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'blogger/static') # Where the static files are stored and retrieved
 ]
 
+# Media storage path
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# Public media
+MEDIA_URL = '/media/'
+
 # Crispy forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'blog:home'
