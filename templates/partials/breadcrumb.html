@@ -1,0 +1,58 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li 
+            {% if home_url in request.path %}
+                class="breadcrumb-item active" aria-current="page"
+            {% else %}
+                class="breadcrumb-item"
+            {% endif %}
+        >
+            <a href="{% url 'blog:home' %}">posts</a>
+        </li>
+
+        {% if home_url in request.path %}
+            {{ pass }}
+        {% else %}
+            <li 
+                {% if detail_url in request.path %}
+                    class="breadcrumb-item active" aria-current="page"
+                {% else %}
+                    class="breadcrumb-item"
+                {% endif %}
+            >
+                <a href="{% url 'blog:post_detail' post.id %}">detail</a>
+            </li>
+        {% endif %}
+
+    
+        {% if home_url in request.path or detail_url in request.path %}
+            {{ pass }}
+        {% else %}
+            <li
+                {% if update_url in request.path %}
+                    class="breadcrumb-item active" aria-current="page"
+                {% else %}
+                    class="breadcrumb-item"
+                {% endif %}
+            >
+                <a href="{% url 'blog:post_update' post.id %}">update</a>
+            </li>
+        {% endif %}
+
+        {% if home_url in request.path or detail_url in request.path or update_url in request.path %}
+            {{ pass }}
+        {% else %}
+            <li
+                {% if update_url in request.path %}
+                    class="breadcrumb-item active" aria-current="page"
+                {% else %}
+                    class="breadcrumb-item"
+                {% endif %}
+            >
+                <a href="{% url 'blog:post_delete' post.id %}">delete</a>
+            </li>
+        {% endif %}
+
+      <!-- <li class="breadcrumb-item active" aria-current="page">Library</li> -->
+    </ol>
+</nav>
