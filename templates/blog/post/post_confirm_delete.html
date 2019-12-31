@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% url 'blog:post_confirm_delete' post.id as action_url %}
+    {% include 'partials/breadcrumb.html' with delete_url=action_url %}
+
+    <div class="content-section">
+        <form action="{% url 'blog:post_delete' post.id%}" method="POST">
+            {% csrf_token %}
+
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4 text-center">Delete Post</legend>
+                <h1>Do you want to delete this post "{{ post.title }}"</h1>
+            </fieldset>
+            <div class="form-group">
+                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                <a class="btn btn-outline-warning" href="{% url 'blog:post_detail' post.id %}">Cancel</a>
+            </div>
+        </form>
+    </div>
+{% endblock %}

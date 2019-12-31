@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    {% url 'blog:post_detail' post.id as action_url %}
+    {% include 'partials/breadcrumb.html' with post=post detail_url=action_url %}
+
+    <article class="media content-section">
+        <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" alt="">
+        <div class="media-body">
+            <div class="article-metadata">
+               <div>
+                <a href="#" class="mr-2">{{ post.author }}</a>
+                <small class="text-muted mr-5">{{ post.date_posted | date:"F d, Y" }}</small>
+                {% if request.user == post.author %}
+                    <div class="lead">
+                        <a href="{% url 'blog:post_update' post.id %}" class="btn btn-sm btn-primary">update</a>
+                        <a href="{% url 'blog:post_delete' post.id %}" class="btn btn-sm btn-danger">Delete</a>
+                    </div>
+                    {% endif %}
+               </div>
+            </div>
+            <h2 class="article-title">{{ post.title }}</h2>
+            <p class="article-content">{{ post.content }}</p>
+        </div>
+    </article>
+{% endblock %}
