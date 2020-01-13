@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="{% static 'blog/main.css' %}">
     
     <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/lumen/bootstrap.min.css" rel="stylesheet" integrity="sha384-715VMUUaOfZR3/rWXZJ9agJ/udwSXGEigabzUbJm2NR4/v5wpDy8c14yedZN6NL7" crossorigin="anonymous">    
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/lumen/bootstrap.min.css" rel="stylesheet" integrity="sha384-715VMUUaOfZR3/rWXZJ9agJ/udwSXGEigabzUbJm2NR4/v5wpDy8c14yedZN6NL7" crossorigin="anonymous">
+
     {% if title %}
         <title> Blogger | {{ title }}</title>
     {% else %}
@@ -27,7 +28,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarToggle">
                 <div class="navbar-nav mr-auto">
-                <a class="nav-item nav-link" href="{% url 'blog:home' %}">Home</a>
+                <a class="nav-item nav-link" href="{% url 'blog:posts' %}">Home</a>
                 <a class="nav-item nav-link" href="{% url 'blog:about' %}">About</a>
                 </div>
                 <!-- Navbar Right Side -->
