@@ -15,9 +15,8 @@ VENV
 *.js
 assets
 snippets
-# If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
-# in your Git repository. Update and uncomment the following line accordingly.
 blogger/static/
+.env
 
 ### Django.Python Stack ###
 # Byte-compiled / optimized / DLL files
@@ -114,4 +113,3 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-
