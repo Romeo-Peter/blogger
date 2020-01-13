@@ -1,4 +1,5 @@
 import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -123,5 +124,19 @@ MEDIA_URL = '/media/'
 
 # Crispy forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-LOGIN_REDIRECT_URL = 'blog:home'
+# For login required pages
+LOGIN_REDIRECT_URL = 'blog:posts'
+
+# Redirect to login page when user is registered
 LOGIN_URL = 'account:login'
+
+
+# Setting email to use smtp
+# Values stored in environmental variables.
+load_dotenv()
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.getenv('GMAIL_ADDRESS')
+EMAIL_HOST_PASSWORD = os.getenv('GMAIL_PASSWORD')
