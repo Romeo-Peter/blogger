@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import ( LoginRequiredMixin, UserPassesTestMixin)
 from .models import Post
+from .forms import PostForm
+from django.contrib.auth.models import User
 from django.views.generic import (
     ListView, 
     DetailView, 
@@ -15,24 +17,37 @@ def home(request):
     context = {
         'posts': posts
     }
-    return render(request, 'blog/home.html', context)
+    return render(request, 'blog/posts.html', context)
 
 class PostListView(ListView):
     model  = Post
-    template_name = 'blog/home.html'
+    template_name = 'blog/posts/posts.html'
     context_object_name = 'posts'
     ordering = ['-date_posted']
+    paginate_by = 4
+
+class UserPostListView(ListView):
+    model  = Post
+    template_name = 'blog/posts/user_posts.html'
+    context_object_name = 'posts'
+    paginate_by = 4
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        user_post = Post.objects.filter(author=user).order_by('-date_posted')
+        return user_post
+        
+
 
 class PostDetailView(DetailView):
     model = Post
-    template_name = 'blog/post/post_detail.html'
+    template_name = 'blog/posts/post_detail.html'
     context_object_name = 'post'
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    template_name = 'blog/post/post_forms.html'
-    fields = ['title', 'content']
-    # success_url : Redirect to specific view
+    template_name = 'blog/posts/post_forms.html'
+    form_class = PostForm
  
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -40,8 +55,8 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    template_name = 'blog/post/post_forms.html'
-    fields = ['title', 'content']
+    template_name = 'blog/posts/post_forms.html'
+    form_class = PostForm
  
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -57,7 +72,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     context_object_name = 'post'
-    template_name = 'blog/post/post_confirm_delete.html'
+    template_name = 'blog/posts/post_confirm_delete.html'
     success_url = '/'
 
     def test_func(self):
@@ -66,6 +81,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
+
 
 
 def about(request):
